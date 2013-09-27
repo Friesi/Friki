@@ -2,6 +2,7 @@ package at.friki.aufgabe1;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -32,6 +33,8 @@ public class MainActivity extends Activity {
         SaxRssFeedParser rss = new SaxRssFeedParser("http://derStandard.at/?page=rss&ressort=Webstandard");
         List<RssItem> items = new ArrayList<RssItem>();
 
+        
+        //startService(new Intent(this, UpdaterServiceManager.class));
         items = rss.parse();
 
         TextView tv = (TextView) this.findViewById(R.id.textView);
