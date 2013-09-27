@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 	
-	private Handler handler; //bla bla bla
+	private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

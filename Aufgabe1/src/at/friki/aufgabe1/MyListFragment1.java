@@ -57,6 +57,7 @@ public class MyListFragment1 extends ListFragment {
         trans.add(R.id.main_activity_container, new MyListFragment2());
         //trans.addToBackStack(null);
         
+        
         trans.commit();
         //getFragmentManager().beginTransaction().add(MyListFragment2.this, "hallo");
         
