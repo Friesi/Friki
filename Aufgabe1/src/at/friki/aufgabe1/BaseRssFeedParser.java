@@ -6,7 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by Mathias on 26.09.13.adhae zhejseh
+ * Created by Mathias on 26.09.13.
  */
 public abstract class BaseRssFeedParser implements iRssFeedParser {
     // names of the XML tags
