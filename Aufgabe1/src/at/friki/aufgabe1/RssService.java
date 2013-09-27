@@ -37,7 +37,7 @@ public class RssService extends Service {
 		
 		        for(RssItem item: items) {
 		            //tv.append(item.getTitle());
-		        	tv += item.getTitle();
+		        	tv = item.getTitle();
 		        }
 				
 		        Toast toast = Toast.makeText(getApplicationContext(), tv, Toast.LENGTH_LONG);
