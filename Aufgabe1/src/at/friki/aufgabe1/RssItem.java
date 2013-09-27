@@ -1,4 +1,4 @@
-package at.friki.exercise1;
+package at.friki.aufgabe1;
 
 import java.net.MalformedURLException;
 import java.net.URL;

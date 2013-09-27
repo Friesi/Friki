@@ -1,4 +1,4 @@
-package at.friki.exercise1;
+package at.friki.aufgabe1;
 
 /**
  * Created by Chris on 26.09.13.

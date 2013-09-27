@@ -1,4 +1,4 @@
-package at.friki.exercise1;
+package at.friki.aufgabe1;
 
 import android.sax.Element;
 import android.sax.EndElementListener;
