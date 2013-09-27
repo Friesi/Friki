@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 	
-	private Handler handler;
+	private Handler handler; //der guade Handler
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
