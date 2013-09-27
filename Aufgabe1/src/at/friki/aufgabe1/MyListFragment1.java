@@ -3,6 +3,8 @@ package at.friki.aufgabe1;
 /**
  * Created by Chris on 26.09.13.
  */
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,11 +46,20 @@ public class MyListFragment1 extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
-        String selection = l.getItemAtPosition(position).toString();
+        /*String selection = l.getItemAtPosition(position).toString();
 
         TextView mTextView = (TextView) v.findViewById(R.id.detailfragmenttext);
-        mTextView.setText(selection);
+        mTextView.setText(selection);*/
 
+        FragmentManager man = getFragmentManager();
+        FragmentTransaction trans = man.beginTransaction();
+        
+        trans.add(R.id.main_activity_container, new MyListFragment2());
+        //trans.addToBackStack(null);
+        
+        trans.commit();
+        //getFragmentManager().beginTransaction().add(MyListFragment2.this, "hallo");
+        
       // String selection = l.getItemAtPosition(position).toString();
 
 

@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -21,13 +22,13 @@
         android:onClick="btnStart" />
     
     
-    <!--  <fragment
-        android:name="at.friki.exercise1.MyListFragment1"
+      <fragment
+        android:name="at.friki.aufgabe1.MyListFragment1"
         android:id="@+id/fragment1"
-        android:layout_weight="1"
-        android:layout_width="0px"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <fragment
+      
+     <!--<fragment
         android:name="at.friki.exercise1.MyListFragment2"
         android:id="@+id/fragment2"
         android:layout_weight="2"

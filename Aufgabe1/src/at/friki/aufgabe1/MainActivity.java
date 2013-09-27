@@ -1,6 +1,7 @@
 package at.friki.aufgabe1;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -12,13 +13,14 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 	
-	//es funnktioniert!!!!
-	
+	private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        handler = new Handler();
     }
 
 
@@ -37,7 +39,7 @@ public class MainActivity extends Activity {
         
         startService(new Intent(this, RssService.class));
         
-
+        
        
     }
 }

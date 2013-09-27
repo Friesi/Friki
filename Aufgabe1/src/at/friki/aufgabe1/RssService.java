@@ -42,8 +42,13 @@ public class RssService extends Service {
 				
 		        Toast toast = Toast.makeText(getApplicationContext(), tv, Toast.LENGTH_LONG);
 		        toast.show();
-				
-				
+				/*
+		        handler.post(new Runnable() {
+		        	@Override
+		        	public void run() {
+		        	progressBar.setProgress(value);
+		        	 }
+		        	});*/
 				
 				//int c = intent.getIntExtra(INTENT_EXTRA_ITERATIONS, -1); 
 				//iterate(c); 
