@@ -54,8 +54,8 @@ public class MyListFragment1 extends ListFragment {
         FragmentManager man = getFragmentManager();
         FragmentTransaction trans = man.beginTransaction();
         
-        trans.add(R.id.main_activity_container, new MyListFragment2());
-        //trans.addToBackStack(null);
+        trans.replace(R.id.main_activity_container, new MyListFragment2());	// add
+        trans.addToBackStack(null);
         
         
         trans.commit();
