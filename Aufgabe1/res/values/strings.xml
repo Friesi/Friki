@@ -4,5 +4,6 @@
     <string name="app_name">Aufgabe1</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="btnStart">Start</string>
 
 </resources>
