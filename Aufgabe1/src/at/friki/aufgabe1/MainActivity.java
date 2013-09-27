@@ -32,18 +32,12 @@ public class MainActivity extends Activity {
 
     public void btnStart(View v) {
 
-        SaxRssFeedParser rss = new SaxRssFeedParser("http://derStandard.at/?page=rss&ressort=Webstandard");
-        List<RssItem> items = new ArrayList<RssItem>();
+        
 
         
-        //startService(new Intent(this, UpdaterServiceManager.class));
-        items = rss.parse();
+        startService(new Intent(this, RssService.class));
+        
 
-        TextView tv = (TextView) this.findViewById(R.id.textView);
-        tv.setText("");
-
-        for(RssItem item: items) {
-            tv.append(item.getTitle());
-        }
+       
     }
 }
