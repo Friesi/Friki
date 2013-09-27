@@ -3,6 +3,8 @@ package at.friki.aufgabe1;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -19,6 +21,18 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        
+        FragmentManager man = getFragmentManager();
+        FragmentTransaction trans = man.beginTransaction();
+        
+        trans.replace(R.id.main_activity_container, new MyListFragment1());	// add
+        trans.addToBackStack(null);
+        
+        
+        trans.commit();
+        
+        
         
         handler = new Handler();
     }
