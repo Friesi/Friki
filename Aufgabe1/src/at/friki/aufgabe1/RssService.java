@@ -27,8 +27,9 @@ public class RssService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		Messenger messenger=(Messenger) intent.getExtras().get(getResources().getString(R.string.RssHandler)); 
 		String rssName = intent.getStringExtra(getResources().getString(R.string.RssName));
+		String rssAdress = intent.getStringExtra(getResources().getString(R.string.RssAdress));
 		
-		RssSaxFeedParser rss = new RssSaxFeedParser(rssName);
+		RssSaxFeedParser rss = new RssSaxFeedParser(rssAdress);
         List<RssItem> items = new ArrayList<RssItem>();
         
         items = rss.parse();	// Kompletten RSS Feed parsen
@@ -44,6 +45,7 @@ public class RssService extends IntentService {
         // Ergebniss per Handle and Activity/Fragment senden
         Message msg = Message.obtain();
         Bundle data = new Bundle();
+        data.putString(getResources().getString(R.string.RssName), rssName);
         data.putStringArrayList(getResources().getString(R.string.RssTitleValue), titles);
         data.putStringArrayList(getResources().getString(R.string.RssLinkValue), links);
         msg.setData(data);

@@ -3,9 +3,11 @@ package at.friki.aufgabe1;
 /**
  * Created by Chris on 26.09.13.
  */
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,12 +43,10 @@ public class FragmentSubscribe extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
-    	FragmentManager man = getFragmentManager();
-        FragmentTransaction trans = man.beginTransaction();
-        
-        trans.replace(R.id.main_activity_container, new FragmentMyRss());	// add
-        trans.addToBackStack(null);
-        trans.commit();
+    	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    	builder.setMessage("RSS Abonnieren?").setPositiveButton("Ja", dialogClickListener).setNegativeButton("Nein", dialogClickListener).show();
+    	
+    	
     	
     	
     	
@@ -75,5 +75,34 @@ public class FragmentSubscribe extends ListFragment {
                 getActivity(),
                 getListView().getItemAtPosition(position).toString(),
                 Toast.LENGTH_LONG).show();*/
+    }
+    
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+            case DialogInterface.BUTTON_POSITIVE:
+            	getActivity().setTitle(getResources().getStringArray(R.array.left_menu)[1]);
+            	
+            	FragmentManager man = getFragmentManager();
+                FragmentTransaction trans = man.beginTransaction();
+                
+                trans.replace(R.id.main_activity_container, new FragmentMyRss());	// add
+                trans.addToBackStack(null);
+                trans.commit();
+                break;
+
+            case DialogInterface.BUTTON_NEGATIVE:
+                //No button clicked
+                break;
+            }
+        }
+    };
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Set title
+        getActivity().getActionBar().setTitle(R.string.titleFragmentSubscribe);
     }
 }

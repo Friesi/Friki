@@ -5,6 +5,9 @@ package at.friki.aufgabe1;
  */
 import java.util.ArrayList;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,13 +18,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class FragmentMyRss extends ListFragment {
-
-	private RssHandler rssHandler;
 	
 	String[] elements ={
             "MyListenelement 1",
             "MyListenelement 2",
-            "MyListenelement 3",
+            "derStandard.at",
 
     };
 	
@@ -32,32 +33,42 @@ public class FragmentMyRss extends ListFragment {
         // TODO: Eigene vorhandene RSS-Feeds vom internen Speicher auslesen und als "elements" einfügen/anzeigen
         
         setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, elements));
-        
-        rssHandler = new RssHandler(getActivity(), this);
     }
 	
 	@Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+		getActivity().setTitle(getResources().getStringArray(R.array.left_menu)[1]);
+    	
+		/*
+    	FragmentManager man = getFragmentManager();
+        FragmentTransaction trans = man.beginTransaction();
+        
+        trans.replace(R.id.main_activity_container, new FragmentPostings());
+        trans.addToBackStack(null);
+        trans.commit();	*/
+        
+        
+        Fragment fragment = new FragmentPostings();
+        
+        Bundle args = new Bundle();
+        args.putString(getResources().getString(R.string.RssName), elements[position]);
+		args.putString(getResources().getString(R.string.RssAdress), "http://derStandard.at/?page=rss&ressort=Webstandard");	// TODO: Diese fixe Adresse muss ausgetauscht werden durch die, auf die im Fragment geklickt wurde
+		fragment.setArguments(args);
 		
-		ArrayList<String> locUrls = rssHandler.getUrls();
-		
-		if (locUrls.isEmpty()) {
-	        Intent intent = new Intent(getActivity(), RssService.class); 
-	        intent.putExtra(getResources().getString(R.string.RssName), "http://derStandard.at/?page=rss&ressort=Webstandard");		// TODO: Diese fixe Adresse muss ausgetauscht werden durch die, auf die im Fragment geklickt wurde
-	        intent.putExtra(getResources().getString(R.string.RssHandler), new Messenger(this.rssHandler));
-	        
-	        getActivity().startService(intent);
-		}
-		else {
-			if (!locUrls.get(position).startsWith("http://") && !locUrls.get(position).startsWith("https://"))
-				locUrls.set(position, "http://" + locUrls.get(position));
-			
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(locUrls.get(position)));
-			startActivity(browserIntent);
-		}
-			
+		FragmentManager fragmentManager = getFragmentManager();
+		fragmentManager.beginTransaction()
+		               .replace(R.id.main_activity_container, fragment)
+		               .addToBackStack(null)
+		               .commit();
 	}
 	
+	@Override
+    public void onResume() {
+        super.onResume();
+        // Set title
+        getActivity().getActionBar().setTitle(R.string.titleFragmentMyRss);
+    }
+
 	/*
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
