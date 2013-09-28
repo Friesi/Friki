@@ -36,13 +36,15 @@ public class FragmentSubscribe extends ListFragment {
         setListAdapter(myListAdapter);
 
     }
-
+    
+/*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_subscribe, container, false);
-    }
+    }*/
 
+    
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 

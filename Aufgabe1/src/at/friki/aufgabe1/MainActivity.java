@@ -1,26 +1,18 @@
 package at.friki.aufgabe1;
 
-import android.os.Bundle;
-import android.os.Handler;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends Activity {
-	
-	private Handler handler;
 	
 	private String[] leftMenuTitles;
 	private DrawerLayout drawerLayout;
@@ -46,8 +38,6 @@ public class MainActivity extends Activity {
         			   //.addToBackStack(null)
                        .replace(R.id.main_activity_container, new FragmentSubscribe())
                        .commit();
-        
-        handler = new Handler();
     }
 
 
@@ -98,9 +88,7 @@ public class MainActivity extends Activity {
         setTitle(leftMenuTitles[position]);
         drawerLayout.closeDrawer(drawerList);
     }
-
-
-    public void btnStart(View v) {
-        startService(new Intent(this, RssService.class));
-    }
+    
+    
+    /** Methode die aufgerufen wird wenn das Service fertig ist */
 }
