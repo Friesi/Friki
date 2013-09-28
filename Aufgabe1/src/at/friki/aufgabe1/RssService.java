@@ -24,34 +24,23 @@ public class RssService extends IntentService {
 	
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		String rssName = intent.getStringExtra(getResources().getString(R.string.RssName));
-		
 		Messenger messenger=(Messenger) intent.getExtras().get(getResources().getString(R.string.RssHandler)); 
-		
+		String rssName = intent.getStringExtra(getResources().getString(R.string.RssName));
 		
 		RssSaxFeedParser rss = new RssSaxFeedParser(rssName);
         List<RssItem> items = new ArrayList<RssItem>();
         
-        items = rss.parse();
+        items = rss.parse();	// Kompletten RSS Feed parsen
         
-        //TextView tv = (TextView) this.findViewById(R.id.textView);
-        //tv.setText("");
-        
-        String tv = "";
+        ArrayList<String> titles = new ArrayList<String>();
 
         for(RssItem item: items) {
-            //tv.append(item.getTitle());
-        	tv = item.getTitle();
-        }
-		
-        Toast toast = Toast.makeText(getApplicationContext(), tv, Toast.LENGTH_LONG);
-        toast.show();
-        
-        
+        	titles.add(item.getTitle());
+        }        
         
         Message msg = Message.obtain();
         Bundle data = new Bundle();
-        data.putString(getResources().getString(R.string.RssReturnValue), "value" + System.currentTimeMillis() );
+        data.putStringArrayList(getResources().getString(R.string.RssReturnValue), titles);
         msg.setData(data);
        
         try {
@@ -62,83 +51,3 @@ public class RssService extends IntentService {
         } 
 	}
 }
-
-
-
-
-
-
-
-
-/*
-
-public class RssService extends Service {
-	
-	@Override
-	public IBinder onBind(Intent intent) {
-		return null;
-	}
-	
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) { 
-		
-		final String rssName = intent.getStringExtra(getResources().getString(R.string.RssName));
-		
-		Thread t = new Thread(new Runnable() { 
-			
-			String name = rssName;
-			
-			@Override 
-			public void run() { 
-				RssSaxFeedParser rss = new RssSaxFeedParser(name);
-		        List<RssItem> items = new ArrayList<RssItem>();
-		        
-		        items = rss.parse();
-		        
-		        //TextView tv = (TextView) this.findViewById(R.id.textView);
-		        //tv.setText("");
-		        
-		        String tv = "";
-		
-		        for(RssItem item: items) {
-		            //tv.append(item.getTitle());
-		        	tv = item.getTitle();
-		        }
-				
-		        Toast toast = Toast.makeText(getApplicationContext(), tv, Toast.LENGTH_LONG);
-		        toast.show();
-				/*
-		        handler.post(new Runnable() {
-		        	@Override
-		        	public void run() {
-		        	progressBar.setProgress(value);
-		        	 }
-		        	});//*
-				
-				//int c = intent.getIntExtra(INTENT_EXTRA_ITERATIONS, -1); 
-				//iterate(c); 
-				//return START_NOT_STICKY; 
-		        stopSelf();
-			}
-		});
-			
-		t.start(); 
-		return START_NOT_STICKY;
-	} 
-	
-	public void iterate(final int c) { 
-		Thread t = new Thread() { 
-	
-			@Override 
-			public void run() { 
-				//LOGGER.error("ITERATING: "+ c); 
-				
-				
-		        
-				stopSelf(); 
-				} 
-			}; 
-			t.start(); 
-			} 
-	}*/
-

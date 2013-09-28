@@ -28,19 +28,13 @@ public class FragmentMyRss extends ListFragment {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ListAdapter myListAdapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                elements);
-        setListAdapter(myListAdapter);
+        setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, elements));        
         
-        
-        rssHandler = new RssHandler(getActivity(), R.id.detailfragmenttext);
-        
+        rssHandler = new RssHandler(getActivity(), this);
         
         Intent intent = new Intent(getActivity(), RssService.class); 
         intent.putExtra(getResources().getString(R.string.RssName), "http://derStandard.at/?page=rss&ressort=Webstandard");		// TODO: Diese fixe Adresse muss ausgetauscht werden durch die, auf die im Fragment geklickt wurde
-        intent.putExtra(getResources().getString(R.string.RssHandler), new Messenger(rssHandler));
+        intent.putExtra(getResources().getString(R.string.RssHandler), new Messenger(this.rssHandler));
         
         getActivity().startService(intent);
 
