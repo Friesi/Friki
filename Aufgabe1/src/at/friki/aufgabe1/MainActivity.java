@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         
         
         
-        handler = new Handler();	// Test standpc   
+        handler = new Handler();	// Test laptop 
     }
 
 
