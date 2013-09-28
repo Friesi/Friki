@@ -36,29 +36,26 @@ public class FragmentSubscribe extends ListFragment {
         setListAdapter(myListAdapter);
 
     }
-    
-/*
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_subscribe, container, false);
-    }*/
 
     
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
-        /*String selection = l.getItemAtPosition(position).toString();
-
-        TextView mTextView = (TextView) v.findViewById(R.id.detailfragmenttext);
-        mTextView.setText(selection);*/
-
-        FragmentManager man = getFragmentManager();
+    	FragmentManager man = getFragmentManager();
         FragmentTransaction trans = man.beginTransaction();
         
         trans.replace(R.id.main_activity_container, new FragmentMyRss());	// add
         trans.addToBackStack(null);
         trans.commit();
+    	
+    	
+    	
+        /*String selection = l.getItemAtPosition(position).toString();
+
+        TextView mTextView = (TextView) v.findViewById(R.id.detailfragmenttext);
+        mTextView.setText(selection);*/
+
+        
         //getFragmentManager().beginTransaction().add(MyListFragment2.this, "hallo");
         
       // String selection = l.getItemAtPosition(position).toString();

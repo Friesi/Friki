@@ -13,10 +13,13 @@ public class RssHandler extends Handler {
 	
 	private Activity activity;
 	private ListFragment fragment;
+	private ArrayList<String> urls;
 	
 	public RssHandler(Activity activity, ListFragment fragment) {
 		this.activity = activity;
 		this.fragment = fragment;
+		
+		this.urls = new ArrayList<String>();
 	}
 	
 	@Override
@@ -25,8 +28,13 @@ public class RssHandler extends Handler {
 		//String result = msg.getData().getString(activity.getResources().getString(R.string.RssReturnValue)); 
 		//display.setText(result);
 		
-		ArrayList<String> result = msg.getData().getStringArrayList(activity.getResources().getString(R.string.RssReturnValue)); 
+		ArrayList<String> resultTitle = msg.getData().getStringArrayList(activity.getResources().getString(R.string.RssTitleValue)); 
+		this.urls = msg.getData().getStringArrayList(activity.getResources().getString(R.string.RssLinkValue));
 		
-		fragment.setListAdapter(new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, result));  
+		fragment.setListAdapter(new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, resultTitle));  
+	}
+	
+	public ArrayList<String> getUrls() {
+		return this.urls;
 	}
 }

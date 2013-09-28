@@ -1,5 +1,6 @@
 package at.friki.aufgabe1;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -33,14 +34,18 @@ public class RssService extends IntentService {
         items = rss.parse();	// Kompletten RSS Feed parsen
         
         ArrayList<String> titles = new ArrayList<String>();
+        ArrayList<String> links = new ArrayList<String>();
 
         for(RssItem item: items) {
         	titles.add(item.getTitle());
+        	links.add(item.getLink().toString());
         }        
         
+        // Ergebniss per Handle and Activity/Fragment senden
         Message msg = Message.obtain();
         Bundle data = new Bundle();
-        data.putStringArrayList(getResources().getString(R.string.RssReturnValue), titles);
+        data.putStringArrayList(getResources().getString(R.string.RssTitleValue), titles);
+        data.putStringArrayList(getResources().getString(R.string.RssLinkValue), links);
         msg.setData(data);
        
         try {
