@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MyListFragment1 extends ListFragment {
+public class FragmentSubscribe extends ListFragment {
 
     String[] elements ={
             "Listenelement 1",
@@ -40,7 +40,7 @@ public class MyListFragment1 extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.listfragment1, container, false);
+        return inflater.inflate(R.layout.fragment_subscribe, container, false);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class MyListFragment1 extends ListFragment {
         FragmentManager man = getFragmentManager();
         FragmentTransaction trans = man.beginTransaction();
         
-        trans.replace(R.id.main_activity_container, new MyListFragment2());	// add
+        trans.replace(R.id.main_activity_container, new FragmentMyRss());	// add
         trans.addToBackStack(null);
         trans.commit();
         //getFragmentManager().beginTransaction().add(MyListFragment2.this, "hallo");

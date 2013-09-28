@@ -25,7 +25,7 @@ public class RssService extends Service {
 			
 			@Override 
 			public void run() { 
-				SaxRssFeedParser rss = new SaxRssFeedParser("http://derStandard.at/?page=rss&ressort=Webstandard");
+				RssSaxFeedParser rss = new RssSaxFeedParser("http://derStandard.at/?page=rss&ressort=Webstandard");
 		        List<RssItem> items = new ArrayList<RssItem>();
 		        
 		        items = rss.parse();

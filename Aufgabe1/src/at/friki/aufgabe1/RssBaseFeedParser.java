@@ -8,7 +8,7 @@ import java.net.URL;
 /**
  * Created by Mathias on 26.09.13
  */
-public abstract class BaseRssFeedParser implements iRssFeedParser {
+public abstract class RssBaseFeedParser implements iRssFeedParser {
     // names of the XML tags
     static final String PUB_DATE = "pubDate";
     static final  String DESCRIPTION = "description";
@@ -18,7 +18,7 @@ public abstract class BaseRssFeedParser implements iRssFeedParser {
 
     final URL feedUrl;
 
-    protected BaseRssFeedParser(String feedUrl){
+    protected RssBaseFeedParser(String feedUrl){
         try {
             this.feedUrl = new URL(feedUrl);
         } catch (MalformedURLException e) {

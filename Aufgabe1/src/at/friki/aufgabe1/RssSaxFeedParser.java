@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * Created by Mathias on 26.09.13.
  */
-public class SaxRssFeedParser extends BaseRssFeedParser {
+public class RssSaxFeedParser extends RssBaseFeedParser {
 
-    public SaxRssFeedParser(String feedUrl) {
+    public RssSaxFeedParser(String feedUrl) {
         super(feedUrl);
     }
 
