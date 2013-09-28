@@ -7,9 +7,11 @@ import java.util.logging.Logger;
 import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.RemoteException;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,9 +47,19 @@ public class RssService extends IntentService {
         Toast toast = Toast.makeText(getApplicationContext(), tv, Toast.LENGTH_LONG);
         toast.show();
         
-        Message m = new Message();
-        m.obj = "blub";
-        handler.sendMessage(m);
+        
+        
+        Message msg = Message.obtain();
+        Bundle data = new Bundle();
+        data.putString(getResources().getString(R.string.RssReturnValue), "value" + System.currentTimeMillis() );
+        msg.setData(data);
+       
+        try {
+            messenger.send(msg);
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
 	}
 }
 

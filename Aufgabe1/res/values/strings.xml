@@ -13,5 +13,6 @@
     
     <string name="RssName">at.friki.aufgabe1.RssName</string>
 	<string name="RssHandler">at.friki.aufgabe1.RssHandler</string>
+	<string name="RssReturnValue">at.friki.aufgabe1.RssReturnValue</string>
 
 </resources>
