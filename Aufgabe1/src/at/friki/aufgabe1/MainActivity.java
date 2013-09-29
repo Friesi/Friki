@@ -18,7 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity{
 	
 	private String[] leftMenuTitles;
 	private DrawerLayout drawerLayout;
@@ -34,9 +34,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        title = drawerTitle = getTitle();
+        title = drawerTitle = getTitle();			// woher???
         
-        // Left Slide Menu
+        // Erzeuge Left Slide Menu
+       
         leftMenuTitles = getResources().getStringArray(R.array.left_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_menu);
@@ -44,6 +45,8 @@ public class MainActivity extends Activity {
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.left_menu, leftMenuTitles));	// Set the adapter for the list view
         drawerList.setOnItemClickListener(new DrawerItemClickListener());							// Set the list's click listener
         
+        
+       // Öffne FragmentSubscribe als Startscreen
         
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
@@ -84,7 +87,20 @@ public class MainActivity extends Activity {
         }
     }
 
-    /** Swaps fragments in the main content view */
+    
+    
+   /* ClickListener für Nav Drawer */
+    
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+    
+    
+    
+    /* Geklicktes ListItem des Nav Drawers auswählen und anschließend dafür gewähltes Fragment aufrufen */
     private void selectItem(int position) {
     	
     	Fragment fragment;
@@ -117,11 +133,8 @@ public class MainActivity extends Activity {
     }
     
     
-    
-    
-    
-    
-    
+ 
+
     
     /** Action Bar Zeug - nur für schönere Optik ^^ */
     
@@ -133,16 +146,10 @@ public class MainActivity extends Activity {
     }
     
     
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
     
     
     /* Called whenever we call invalidateOptionsMenu() */
-    @Override
+   /* @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
@@ -150,6 +157,24 @@ public class MainActivity extends Activity {
         return super.onPrepareOptionsMenu(menu);
     }
 
+*/
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+ 	return super.onPrepareOptionsMenu(menu);
+ 		}
+   
+	
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+			if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+        		}
+			return super.onOptionsItemSelected(item);
+			}
+    
+    /*
+     *
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
          // The action bar home/up action should open or close the drawer.
@@ -174,12 +199,18 @@ public class MainActivity extends Activity {
 	            return super.onOptionsItemSelected(item);
         }
     }
-    
+    */
     
     @Override
     public void setTitle(CharSequence title) {
         this.title = title;
         getActionBar().setTitle(title);
+    }
+    
+    
+    public void changeHighlight(){
+    	drawerList.setItemChecked(1, true);
+    	
     }
     
     
