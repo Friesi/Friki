@@ -93,10 +93,7 @@ public class FragmentSubscribe extends ListFragment {
                 trans.replace(R.id.main_activity_container, new FragmentMyRss());					// Eigene Feeds anzeigen, Funktion zum Hinzufügen selbst FEHLT
                 trans.addToBackStack(null);
                 trans.commit();
-                
-                //Highlight auf Element 2 der Nav Draw setzen!!!
-               //getActivity().changeHighlight();
-                
+
                 ((MainActivity) getActivity()).changeHighlight();
                
         

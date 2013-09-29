@@ -145,9 +145,7 @@ public class MainActivity extends Activity{
         return true;
     }
     
-    
-    
-    
+     
     /* Called whenever we call invalidateOptionsMenu() */
    /* @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -208,7 +206,7 @@ public class MainActivity extends Activity{
     }
     
     
-    public void changeHighlight(){
+    public void changeHighlight(){				//nach Übergang von RSS Subscribe auf MySubscribe Highlight richtig setzen
     	drawerList.setItemChecked(1, true);
     	
     }
