@@ -3,6 +3,7 @@ package at.friki.aufgabe1;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -92,27 +93,36 @@ public class MainActivity extends Activity{
         }
         
         
-        LocalBroadcastManager.getInstance(this).registerReceiver(HighlightReceiver,		//Listener für Broadcast mit Filter "changehighlight"
-        	      new IntentFilter("changehighlight"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(SubscribeReceiver,		//Listener für Broadcast mit Filter "changehighlight"
+      	      new IntentFilter("subscribefeed"));
+        
+         
     }
-    
     
     
     /**			Wird aufgerufen wenn Broadcast "changehighlight" empfangen wird */
     
     
-    private BroadcastReceiver HighlightReceiver = new BroadcastReceiver() {
-    	  @Override
-    	  public void onReceive(Context context, Intent intent) {
-    	    // Get extra data included in the Intent
-    	   // String message = intent.getStringExtra("message");
-    	   // Log.d("receiver", "Got message: " + message);
-    		  
-    		  changeHighlight();
-    		  
-    		  
-    	  }
-    	};
+   
+    private BroadcastReceiver SubscribeReceiver = new BroadcastReceiver() {
+      	  @Override
+      	  public void onReceive(Context context, Intent intent) {
+      		  
+      		  
+      		setTitle(getResources().getStringArray(R.array.left_menu)[1]);
+        	
+        	FragmentManager man = getFragmentManager();											// Fragment Eigene Feeds anzeigen, Funktion zum Hinzufügen selbst FEHLT
+            FragmentTransaction trans = man.beginTransaction();
+            
+            trans.replace(R.id.main_activity_container, new FragmentMyRss());					// Eigene Feeds anzeigen, Funktion zum Hinzufügen selbst FEHLT
+            trans.addToBackStack(null);
+            trans.commit();
+            
+            changeHighlight();
+      	
+      
+      	  }
+      	};
 
     
     
@@ -261,7 +271,7 @@ public class MainActivity extends Activity{
     @Override
     protected void onDestroy() {
       // Unregister since the activity is about to be closed.
-      LocalBroadcastManager.getInstance(this).unregisterReceiver(HighlightReceiver);
+      LocalBroadcastManager.getInstance(this).unregisterReceiver(SubscribeReceiver);
       super.onDestroy();
     }
 

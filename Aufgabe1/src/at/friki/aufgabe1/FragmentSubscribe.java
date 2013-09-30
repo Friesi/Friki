@@ -51,8 +51,7 @@ public class FragmentSubscribe extends ListFragment {
     	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     	builder.setMessage("RSS Abonnieren?").setPositiveButton("Ja", dialogClickListener).setNegativeButton("Nein", dialogClickListener).show();		//Dialog zeigen
     	
-    	
-    	
+
     	
     	
         /*String selection = l.getItemAtPosition(position).toString();
@@ -89,28 +88,18 @@ public class FragmentSubscribe extends ListFragment {
             case DialogInterface.BUTTON_POSITIVE:													//wenn Dialogantwort JA
             	
             	
+            	 /** BroadcastManager erzeugt neuen Broadcast */
             	
-            	getActivity().setTitle(getResources().getStringArray(R.array.left_menu)[1]);
             	
-            	FragmentManager man = getFragmentManager();
-                FragmentTransaction trans = man.beginTransaction();
-                
-                trans.replace(R.id.main_activity_container, new FragmentMyRss());					// Eigene Feeds anzeigen, Funktion zum Hinzufügen selbst FEHLT
-                trans.addToBackStack(null);
-                trans.commit();
-
+            	  // Log.d("sender", "Broadcasting message");
+            	Intent subscribeintent = new Intent("subscribefeed");
+            	 //intent.putExtra("message", "This is my message!");								// Hier könnte man Extra Informationen angeben
+            	LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(subscribeintent);
+            	
+            
                 //((MainActivity) getActivity()).changeHighlight();									// Highlight Fehler beheben --> 2ter Menüpunkt wird hervorgehoben, ALTE METHODE
                
-                
-                /** BroadcastManager erzeugt neuen Broadcast */
-                
-               // Log.d("sender", "Broadcasting message");										// Highlight Fehler beheben --> 2ter Menüpunkt wird hervorgehoben mit LocalBroadcast
-                Intent intent = new Intent("changehighlight");
-                //intent.putExtra("message", "This is my message!");							// Hier könnte man Extra Informationen angeben
-                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
-                
-      
-                
+
                 break;
 
             case DialogInterface.BUTTON_NEGATIVE:													//wenn Dialogantwort NEIN
