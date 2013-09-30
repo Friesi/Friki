@@ -4,12 +4,17 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -85,7 +90,29 @@ public class MainActivity extends Activity{
         if (savedInstanceState == null) {
             selectItem(0);
         }
+        
+        
+        LocalBroadcastManager.getInstance(this).registerReceiver(HighlightReceiver,		//Listener für Broadcast mit Filter "changehighlight"
+        	      new IntentFilter("changehighlight"));
     }
+    
+    
+    
+    /**			Wird aufgerufen wenn Broadcast "changehighlight" empfangen wird */
+    
+    
+    private BroadcastReceiver HighlightReceiver = new BroadcastReceiver() {
+    	  @Override
+    	  public void onReceive(Context context, Intent intent) {
+    	    // Get extra data included in the Intent
+    	   // String message = intent.getStringExtra("message");
+    	   // Log.d("receiver", "Got message: " + message);
+    		  
+    		  changeHighlight();
+    		  
+    		  
+    	  }
+    	};
 
     
     
@@ -229,6 +256,13 @@ public class MainActivity extends Activity{
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+    
+    @Override
+    protected void onDestroy() {
+      // Unregister since the activity is about to be closed.
+      LocalBroadcastManager.getInstance(this).unregisterReceiver(HighlightReceiver);
+      super.onDestroy();
     }
 
 }

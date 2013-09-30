@@ -9,7 +9,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,6 +87,9 @@ public class FragmentSubscribe extends ListFragment {
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
             case DialogInterface.BUTTON_POSITIVE:													//wenn Dialogantwort JA
+            	
+            	
+            	
             	getActivity().setTitle(getResources().getStringArray(R.array.left_menu)[1]);
             	
             	FragmentManager man = getFragmentManager();
@@ -94,9 +99,17 @@ public class FragmentSubscribe extends ListFragment {
                 trans.addToBackStack(null);
                 trans.commit();
 
-                ((MainActivity) getActivity()).changeHighlight();
+                //((MainActivity) getActivity()).changeHighlight();									// Highlight Fehler beheben --> 2ter Menüpunkt wird hervorgehoben, ALTE METHODE
                
-        
+                
+                /** BroadcastManager erzeugt neuen Broadcast */
+                
+               // Log.d("sender", "Broadcasting message");										// Highlight Fehler beheben --> 2ter Menüpunkt wird hervorgehoben mit LocalBroadcast
+                Intent intent = new Intent("changehighlight");
+                //intent.putExtra("message", "This is my message!");							// Hier könnte man Extra Informationen angeben
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+                
+      
                 
                 break;
 
