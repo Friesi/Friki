@@ -3,6 +3,7 @@ package at.friki.aufgabe1;
 /**
  * Created by Chris on 26.09.13.
  */
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
@@ -36,11 +37,14 @@ public class FragmentSubscribe extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ListAdapter myListAdapter = new ArrayAdapter<String>(							// Liste erzeugen
+       
+        
+       ListAdapter myListAdapter = new ArrayAdapter<String>(							// Liste erzeugen
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 elements);
         setListAdapter(myListAdapter);
+        
 
     }
 
@@ -91,14 +95,11 @@ public class FragmentSubscribe extends ListFragment {
             	 /** BroadcastManager erzeugt neuen Broadcast */
             	
             	
-            	  // Log.d("sender", "Broadcasting message");
             	Intent subscribeintent = new Intent("subscribefeed");
-            	 //intent.putExtra("message", "This is my message!");								// Hier könnte man Extra Informationen angeben
             	LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(subscribeintent);
             	
             
                 //((MainActivity) getActivity()).changeHighlight();									// Highlight Fehler beheben --> 2ter Menüpunkt wird hervorgehoben, ALTE METHODE
-               
 
                 break;
 
