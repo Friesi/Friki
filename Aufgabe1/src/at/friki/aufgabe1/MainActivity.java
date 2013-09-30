@@ -34,7 +34,7 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        title = drawerTitle = getTitle();			// woher???
+        title = drawerTitle = getTitle();
         
         // Erzeuge Left Slide Menu
        
