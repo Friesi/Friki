@@ -68,26 +68,6 @@ public class FragmentMyRss extends ListFragment {
         // Set title
         getActivity().getActionBar().setTitle(R.string.titleFragmentMyRss);
     }
-
-	/*
-	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-
-        return inflater.inflate(R.layout.fragment_my_rss, container, false);
-    }*/
-	
-	
-	
-	// TODO: Brauchen wir das Unbind???
-	
-	/*
-	@Override
-    public void onPause() {
-    	super.onPause();
-    	unbindService()
-    }*/
     
 
 }
