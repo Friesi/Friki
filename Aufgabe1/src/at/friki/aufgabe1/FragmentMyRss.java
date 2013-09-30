@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Messenger;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -37,17 +38,16 @@ public class FragmentMyRss extends ListFragment {
 	
 	@Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-		getActivity().setTitle(getResources().getStringArray(R.array.left_menu)[1]);
-    	
+		
+
+		Intent postintent = new Intent("feedposts");
+		postintent.putExtra("position", position);
+		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(postintent);
+		
+		
+
+		/** Alter Codeblock, wurde jetzt durch LocalBroadcast in die Activity ausgelagert */
 		/*
-    	FragmentManager man = getFragmentManager();
-        FragmentTransaction trans = man.beginTransaction();
-        
-        trans.replace(R.id.main_activity_container, new FragmentPostings());
-        trans.addToBackStack(null);
-        trans.commit();	*/
-        
-        
         Fragment fragment = new FragmentPostings();
         
         Bundle args = new Bundle();
@@ -60,6 +60,9 @@ public class FragmentMyRss extends ListFragment {
 		               .replace(R.id.main_activity_container, fragment)
 		               .addToBackStack(null)
 		               .commit();
+		 */
+		               
+	
 	}
 	
 	@Override

@@ -93,14 +93,60 @@ public class MainActivity extends Activity{
         }
         
         
-        LocalBroadcastManager.getInstance(this).registerReceiver(SubscribeReceiver,		//Listener für Broadcast mit Filter "changehighlight"
+        
+     /** Diverse Broadcast Listener */   
+        
+        
+        LocalBroadcastManager.getInstance(this).registerReceiver(SubscribeReceiver,	
       	      new IntentFilter("subscribefeed"));
+        
+        LocalBroadcastManager.getInstance(this).registerReceiver(PostReceiver,
+        	      new IntentFilter("feedposts"));
         
          
     }
     
     
-    /**			Wird aufgerufen wenn Broadcast "changehighlight" empfangen wird */
+    
+    /**	Fragment Postings Broadcast abfangen und Fragment aufrufen */
+    
+    private BroadcastReceiver PostReceiver = new BroadcastReceiver() {
+    	  @Override
+    	  public void onReceive(Context context, Intent intent) {
+    		  
+    		  String[] elements ={
+    		            "MyListenelement 1",
+    		            "MyListenelement 2",
+    		            "derStandard.at",
+    		    };
+    		  
+    		  
+    		  setTitle(getResources().getStringArray(R.array.left_menu)[1]);
+    		  
+    		  
+    		  int position = intent.getIntExtra("position", 0);
+    		  
+    		  Fragment fragment = new FragmentPostings();
+    	        
+    	        Bundle args = new Bundle();
+    	        args.putString(getResources().getString(R.string.RssName), elements[position]);
+    			args.putString(getResources().getString(R.string.RssAdress), "http://derStandard.at/?page=rss&ressort=Webstandard");	// TODO: Diese fixe Adresse muss ausgetauscht werden durch die, auf die im Fragment geklickt wurde
+    			fragment.setArguments(args);
+    			
+    			FragmentManager fragmentManager = getFragmentManager();
+    			fragmentManager.beginTransaction()
+    			               .replace(R.id.main_activity_container, fragment)
+    			               .addToBackStack(null)
+    			               .commit();
+    		    
+    		  
+    	  }
+  	};
+    	 
+    
+    
+  	
+  	/**	Fragment Subscribe Broadcast abfangen und Fragment aufrufen */
     
     
    
