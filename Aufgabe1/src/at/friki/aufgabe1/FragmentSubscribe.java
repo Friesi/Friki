@@ -37,18 +37,17 @@ public class FragmentSubscribe extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       
         
+  
        ListAdapter myListAdapter = new ArrayAdapter<String>(							// Liste erzeugen
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 elements);
         setListAdapter(myListAdapter);
-        
+  
+   }
+          
 
-    }
-
-    
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {				// bei Klick auf ListItem
 
