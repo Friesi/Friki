@@ -1,5 +1,6 @@
 package at.friki.aufgabe1;
 
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +24,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity{
@@ -320,5 +323,52 @@ public class MainActivity extends Activity{
       LocalBroadcastManager.getInstance(this).unregisterReceiver(SubscribeReceiver);
       super.onDestroy();
     }
+    
+    
+    /** Funktionen zum Speichern und Lesen von Dateien mit SharedPreferences */
+    
+    
+ public void btn3_click(View view){						// ToDo FragmentMyRss Elemente vom internen Auslesen und ins elements übernehmen
+    	
+    	SharedPreferences prefs = this.getSharedPreferences("at.friki.aufgabe1", Context.MODE_PRIVATE);
+    	
+    	
+    	
+    	String lokalStringLoad = "";
+    	
+    	int maxWert = 0;
+
+    	while(!prefs.getString("wert"+maxWert,"leer").equals("leer")){	// Anzahl der gespeicherten Werte herausfinden
+    		maxWert++; 		
+    	}
+    	
+    	String[] elements = new String[maxWert]; 
+ 
+    	
+    	for(int i=0;i<maxWert;i++){										// und anschließend ins StringArray schreiben
+    	
+	    	lokalStringLoad = prefs.getString("wert"+i,"leer");
+	    	
+	    	elements[i] = lokalStringLoad;
+    	
+    	}
+      
+    	//TextView textview = (TextView) findViewById(R.id.textView2);
+    	//textview.setText(lokalStringLoad);
+   	
+
+   }
+    
+    public void btn4_click(View view){								// alle SharedPreferences löschen, TESTZWECK
+    	
+    	SharedPreferences prefs = this.getSharedPreferences("at.friki.aufgabe1", Context.MODE_PRIVATE);
+    	
+    	prefs.edit().clear().commit();
+    	    
+    }
 
 }
+
+
+
+
