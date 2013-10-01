@@ -20,6 +20,8 @@ import android.widget.ListView;
 
 public class FragmentMyRss extends ListFragment {
 	
+	public static final String BROADCAST_FRAGMENT_MYRSS_CLICK = "BROADCAST_FRAGMENT_MYRSS_CLICK";
+	
 	String[] elements ={
             "MyListenelement 1",
             "MyListenelement 2",
@@ -40,8 +42,8 @@ public class FragmentMyRss extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
 		
 
-		Intent postintent = new Intent("feedposts");
-		postintent.putExtra("position", position);
+		Intent postintent = new Intent(BROADCAST_FRAGMENT_MYRSS_CLICK);
+		postintent.putExtra(getResources().getString(R.string.RssListPosition), position);
 		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(postintent);
 		
 		

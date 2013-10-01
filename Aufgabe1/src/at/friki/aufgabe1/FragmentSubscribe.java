@@ -25,7 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class FragmentSubscribe extends ListFragment {
-	
+
+	public static final String BROADCAST_FRAGMENT_SUBSCRIBE_CLICK = "BROADCAST_FRAGMENT_SUBSCRIBE_CLICK";
 
     String[] elements ={
             "Listenelement 1",
@@ -94,7 +95,7 @@ public class FragmentSubscribe extends ListFragment {
             	 /** BroadcastManager erzeugt neuen Broadcast */
             	
             	
-            	Intent subscribeintent = new Intent("subscribefeed");
+            	Intent subscribeintent = new Intent(BROADCAST_FRAGMENT_SUBSCRIBE_CLICK);
             	LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(subscribeintent);
             	
             

@@ -98,10 +98,10 @@ public class MainActivity extends Activity{
         
         
         LocalBroadcastManager.getInstance(this).registerReceiver(SubscribeReceiver,	
-      	      new IntentFilter("subscribefeed"));
+      	      new IntentFilter(FragmentSubscribe.BROADCAST_FRAGMENT_SUBSCRIBE_CLICK));
         
         LocalBroadcastManager.getInstance(this).registerReceiver(PostReceiver,
-        	      new IntentFilter("feedposts"));
+        	      new IntentFilter(FragmentMyRss.BROADCAST_FRAGMENT_MYRSS_CLICK));
         
          
     }
@@ -124,7 +124,7 @@ public class MainActivity extends Activity{
     		  setTitle(getResources().getStringArray(R.array.left_menu)[1]);
     		  
     		  
-    		  int position = intent.getIntExtra("position", 0);
+    		  int position = intent.getIntExtra(getString(R.string.RssListPosition), 0);
     		  
     		  Fragment fragment = new FragmentPostings();
     	        
