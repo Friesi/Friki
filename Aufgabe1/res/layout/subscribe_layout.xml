@@ -15,7 +15,7 @@
         android:text="@string/txtSubscribeTitle" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/txtSubscribeUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -27,7 +27,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/EditText01"
+        android:id="@+id/txtSubscribeName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

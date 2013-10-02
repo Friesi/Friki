@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class FragmentSubscribe extends Fragment implements OnClickListener {
 
@@ -41,8 +42,14 @@ public class FragmentSubscribe extends Fragment implements OnClickListener {
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
             case DialogInterface.BUTTON_POSITIVE:													//wenn Dialogantwort JA
+            	
+            	String txtSubscribeName = ((EditText)getActivity().findViewById(R.id.txtSubscribeName)).getText().toString();
+            	String txtSubscribeUrl = ((EditText)getActivity().findViewById(R.id.txtSubscribeUrl)).getText().toString();
+            	
             	 /** BroadcastManager erzeugt neuen Broadcast */
             	Intent subscribeintent = new Intent(BROADCAST_FRAGMENT_SUBSCRIBE_CLICK);
+            	subscribeintent.putExtra(getResources().getString(R.string.txtSubscribeName), txtSubscribeName);
+            	subscribeintent.putExtra(getResources().getString(R.string.txtSubscribeUrl), txtSubscribeUrl);
             	LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(subscribeintent);
                 break;
 

@@ -37,11 +37,15 @@ public class MainActivity extends Activity{
     private CharSequence drawerTitle;
     private CharSequence title;
 
+    private MyRssDataStore dataStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        // MyRss-Daten Objekt anlegen
+        dataStore = new MyRssDataStore();
         
         title = drawerTitle = getTitle();
         
@@ -145,7 +149,15 @@ public class MainActivity extends Activity{
       	  @Override
       	  public void onReceive(Context context, Intent intent) {
       		  
-      		  
+      		String txtSubscribeName = intent.getStringExtra(getString(R.string.txtSubscribeName));
+      		String txtSubscribeUrl = intent.getStringExtra(getString(R.string.txtSubscribeUrl));
+      		
+      		dataStore.saveNewRssFeed(context, txtSubscribeName, txtSubscribeUrl);
+      		
+      		// Nur für Testzwecke!!!!
+      		dataStore.readAllRssFeeds(context);
+      		String[] blub = dataStore.getMyRssNames();
+      		
       		setTitle(getResources().getStringArray(R.array.left_menu)[1]);
         	
         	FragmentManager man = getFragmentManager();											// Fragment Eigene Feeds anzeigen, Funktion zum Hinzufügen selbst FEHLT
@@ -202,6 +214,7 @@ public class MainActivity extends Activity{
         setTitle(leftMenuTitles[position]);
         drawerLayout.closeDrawer(drawerList);
     }
+    
     
     
     /** Action Bar Zeug - nur für schönere Optik ^^ */
@@ -272,20 +285,16 @@ public class MainActivity extends Activity{
     	
     	SharedPreferences prefs = this.getSharedPreferences("at.friki.aufgabe1", Context.MODE_PRIVATE);
     	
+    	int maxAnz = prefs.getInt("Anz", 0);	// Anzahl der gespeicherten Werte
     	
+    	// putInt("anzahl", xy)
     	
     	String lokalStringLoad = "";
-    	
-    	int maxWert = 0;
 
-    	while(!prefs.getString("wert"+maxWert,"leer").equals("leer")){	// Anzahl der gespeicherten Werte herausfinden
-    		maxWert++; 		
-    	}
-    	
-    	String[] elements = new String[maxWert]; 
+    	String[] elements = new String[maxAnz]; 
  
     	
-    	for(int i=0;i<maxWert;i++){										// und anschließend ins StringArray schreiben
+    	for(int i=0; i<maxAnz; i++){										// und anschließend ins StringArray schreiben
     	
 	    	lokalStringLoad = prefs.getString("wert"+i,"leer");
 	    	
