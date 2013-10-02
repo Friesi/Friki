@@ -152,11 +152,12 @@ public class MainActivity extends Activity{
       		String txtSubscribeName = intent.getStringExtra(getString(R.string.txtSubscribeName));
       		String txtSubscribeUrl = intent.getStringExtra(getString(R.string.txtSubscribeUrl));
       		
-      		dataStore.saveNewRssFeed(context, txtSubscribeName, txtSubscribeUrl);
       		
-      		// Nur für Testzwecke!!!!
-      		dataStore.readAllRssFeeds(context);
-      		String[] blub = dataStore.getMyRssNames();
+      		//dataStore.ClearDataStore(context);	// zu Testzwecken!
+      		
+      		
+      		
+      		dataStore.saveNewRssFeed(context, txtSubscribeName, txtSubscribeUrl);
       		
       		setTitle(getResources().getStringArray(R.array.left_menu)[1]);
         	

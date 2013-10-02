@@ -27,7 +27,7 @@ public class FragmentSubscribe extends Fragment implements OnClickListener {
       
       Button btnSave = (Button) view.findViewById(R.id.btnSubscribeSave);
       btnSave.setOnClickListener(this);
-      
+       
       return view;
     }
     

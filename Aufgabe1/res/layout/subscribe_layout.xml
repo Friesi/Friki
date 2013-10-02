@@ -40,9 +40,9 @@
         android:id="@+id/btnSubscribeSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
+        android:layout_below="@+id/txtSubscribeUrl"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="24dp"
         android:text="@string/btnSubscribeSave" />
 
 </RelativeLayout>

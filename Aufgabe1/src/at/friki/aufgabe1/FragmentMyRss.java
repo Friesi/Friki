@@ -20,21 +20,38 @@ import android.widget.ListView;
 
 public class FragmentMyRss extends ListFragment {
 	
+	 private MyRssDataStore dataStore;
+	
+	  
+     
+	
+	
+	
 	public static final String BROADCAST_FRAGMENT_MYRSS_CLICK = "BROADCAST_FRAGMENT_MYRSS_CLICK";
 	
-	String[] elements ={
+	/*String[] elements ={
             "MyListenelement 1",
             "MyListenelement 2",
             "derStandard.at",
 
-    };
+    };*/
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        // TODO: Eigene vorhandene RSS-Feeds vom internen Speicher auslesen und als "elements" einfügen/anzeigen
         
+     // MyRss-Daten Objekt anlegen
+        dataStore = new MyRssDataStore();
+        
+        dataStore.readAllRssFeeds(getActivity());
+        String[] elements = dataStore.getMyRssNames();
+        
+        
+        // TODO: richtige URLS angeben! 
+        
+        
+ 
         setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, elements));
     }
 	
