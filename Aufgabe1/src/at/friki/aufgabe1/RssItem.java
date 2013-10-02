@@ -2,15 +2,19 @@ package at.friki.aufgabe1;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Mathias on 26.09.13.
  */
 public class RssItem {
-    static SimpleDateFormat FORMATTER = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+    static SimpleDateFormat FORMATTER = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+    //static DateFormat format = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.MEDIUM, Locale.US);
+    
     private String title;
     private URL link;
     private String description;
@@ -45,7 +49,7 @@ public class RssItem {
     }
 
     public String getDate() {
-        return FORMATTER.format(this.date);
+        return FORMATTER.format(this.date); //format.format(this.date);// 
     }
 
     public void setDate(String date) {
@@ -54,7 +58,7 @@ public class RssItem {
             date += "0";
         }
         try {
-            this.date = FORMATTER.parse(date.trim());
+            this.date = FORMATTER.parse(date.trim());//format.parse(date.trim());//
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
