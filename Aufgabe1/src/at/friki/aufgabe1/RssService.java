@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
 public class RssService extends IntentService {
 	public RssService() {
 		super("RssService");
