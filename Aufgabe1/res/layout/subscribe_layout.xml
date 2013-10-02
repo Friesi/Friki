@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragmentSubscribe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,24 +11,38 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_marginTop="16dip"
+        android:textSize="20sp"
         android:text="@string/txtSubscribeTitle" />
-
-    <EditText
-        android:id="@+id/EditText01"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dip"
-        android:ems="10"
-        android:hint="@string/hintSubscribeName" />
 
     <EditText
         android:id="@+id/editText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dip"
-        android:hint="@string/hintSubscribeUrl"
-        android:ems="10" >
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/subscribeView"
+        android:layout_marginTop="58dp"
+        android:ems="10"
+        android:hint="@string/hintSubscribeUrl" >
 
     </EditText>
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/EditText01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/subscribeView"
+        android:layout_marginTop="22dp"
+        android:ems="10"
+        android:hint="@string/hintSubscribeName" />
+
+    <Button
+        android:id="@+id/btnSubscribeSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="@string/btnSubscribeSave" />
+
+</RelativeLayout>
