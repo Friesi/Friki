@@ -6,6 +6,7 @@ package at.friki.aufgabe1;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
@@ -24,67 +25,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FragmentSubscribe extends ListFragment {
+public class FragmentSubscribe extends Fragment {
 
 	public static final String BROADCAST_FRAGMENT_SUBSCRIBE_CLICK = "BROADCAST_FRAGMENT_SUBSCRIBE_CLICK";
-
-    String[] elements ={
-            "Listenelement 1",
-            "Listenelement 2",
-            "Listenelement 3",
-
-    };
-
+    
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-  
-       ListAdapter myListAdapter = new ArrayAdapter<String>(							// Liste erzeugen
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                elements);
-        setListAdapter(myListAdapter);
-  
-   }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        Bundle savedInstanceState) {
+      View view = inflater.inflate(R.layout.subscribe_layout, container, false);
+      return view;
+    }
           
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {				// bei Klick auf ListItem
-
-    	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    	builder.setMessage("RSS Abonnieren?").setPositiveButton("Ja", dialogClickListener).setNegativeButton("Nein", dialogClickListener).show();		//Dialog zeigen
+	//AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	//builder.setMessage("RSS Abonnieren?").setPositiveButton("Ja", dialogClickListener).setNegativeButton("Nein", dialogClickListener).show();		//Dialog zeigen
     	
-
-    	
-    	
-        /*String selection = l.getItemAtPosition(position).toString();
-
-        TextView mTextView = (TextView) v.findViewById(R.id.detailfragmenttext);
-        mTextView.setText(selection);*/
-
-        
-        //getFragmentManager().beginTransaction().add(MyListFragment2.this, "hallo");
-        
-      // String selection = l.getItemAtPosition(position).toString();
-
-
-        //View V = inflater.inflate(R.layout.testclassfragment, container, false);
-        //ImageView imageView = (ImageView)V.findViewById(R.id.my_image);
-
-        //TextView tv = (TextView) this.findViewById(R.id.textView);
-        //(TextView) getView().findViewById(R.id.detailfragmenttext);
-
-       // TextView mTextView = (TextView) findViewById(R.id.detailfragmenttext);
-        //mTextView.setText(selection);
-
-
-       /* Toast.makeText(
-                getActivity(),
-                getListView().getItemAtPosition(position).toString(),
-                Toast.LENGTH_LONG).show();*/
-    }
-    
     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
