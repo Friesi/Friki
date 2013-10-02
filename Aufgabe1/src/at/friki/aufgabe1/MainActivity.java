@@ -46,7 +46,6 @@ public class MainActivity extends Activity{
         title = drawerTitle = getTitle();
         
         // Erzeuge Left Slide Menu
-       
         leftMenuTitles = getResources().getStringArray(R.array.left_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_menu);
@@ -55,15 +54,12 @@ public class MainActivity extends Activity{
         drawerList.setOnItemClickListener(new DrawerItemClickListener());							// Set the list's click listener
         
         
-       // Öffne FragmentSubscribe als Startscreen
-        
+        // Öffne FragmentSubscribe als Startscreen
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
         			   //.addToBackStack(null)
                        .replace(R.id.main_activity_container, new FragmentSubscribe())
                        .commit();
-        
-        
         
         /** Action Bar Zeug */
         // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -95,18 +91,14 @@ public class MainActivity extends Activity{
             selectItem(0);
         }
         
+
         
-        
-     /** Diverse Broadcast Listener */   
-        
-        
+        /** Diverse Broadcast Listener */   
         LocalBroadcastManager.getInstance(this).registerReceiver(SubscribeReceiver,	
       	      new IntentFilter(FragmentSubscribe.BROADCAST_FRAGMENT_SUBSCRIBE_CLICK));
         
         LocalBroadcastManager.getInstance(this).registerReceiver(PostReceiver,
-        	      new IntentFilter(FragmentMyRss.BROADCAST_FRAGMENT_MYRSS_CLICK));
-        
-         
+        	      new IntentFilter(FragmentMyRss.BROADCAST_FRAGMENT_MYRSS_CLICK)); 
     }
     
     
@@ -141,8 +133,6 @@ public class MainActivity extends Activity{
     			               .replace(R.id.main_activity_container, fragment)
     			               .addToBackStack(null)
     			               .commit();
-    		    
-    		  
     	  }
   	};
     	 
@@ -150,9 +140,7 @@ public class MainActivity extends Activity{
     
   	
   	/**	Fragment Subscribe Broadcast abfangen und Fragment aufrufen */
-    
-    
-   
+
     private BroadcastReceiver SubscribeReceiver = new BroadcastReceiver() {
       	  @Override
       	  public void onReceive(Context context, Intent intent) {
@@ -175,16 +163,13 @@ public class MainActivity extends Activity{
 
     
     
-   /* ClickListener für Nav Drawer */
-    
+    /* ClickListener für Nav Drawer */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             selectItem(position);
         }
     }
-    
-    
     
     /* Geklicktes ListItem des Nav Drawers auswählen und anschließend dafür gewähltes Fragment aufrufen */
     private void selectItem(int position) {
@@ -219,9 +204,6 @@ public class MainActivity extends Activity{
     }
     
     
- 
-
-    
     /** Action Bar Zeug - nur für schönere Optik ^^ */
     
     @Override
@@ -230,60 +212,19 @@ public class MainActivity extends Activity{
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
-     
-    /* Called whenever we call invalidateOptionsMenu() */
-   /* @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
-        //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);			// TODO: brauchen wir das?
-        return super.onPrepareOptionsMenu(menu);
-    }
 
-*/
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
  	return super.onPrepareOptionsMenu(menu);
  		}
    
-	
-    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-			if (mDrawerToggle.onOptionsItemSelected(item)) {
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
-        		}
-			return super.onOptionsItemSelected(item);
-			}
-    
-    /*
-     *
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-         // The action bar home/up action should open or close the drawer.
-         // ActionBarDrawerToggle will take care of this.
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
         }
-        // Handle action buttons
-        switch(item.getItemId()) {
-	        case 1://R.id.action_websearch:		// TODO: brauchen wir das?
-	            // create intent to perform web search for this planet
-	            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-	            intent.putExtra(SearchManager.QUERY, getActionBar().getTitle());
-	            // catch event that there's no activity to handle intent
-	            if (intent.resolveActivity(getPackageManager()) != null) {
-	                startActivity(intent);
-	            } else {
-	                Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
-	            }
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-        }
-    }
-    */
+		return super.onOptionsItemSelected(item);
+	}
     
     @Override
     public void setTitle(CharSequence title) {
@@ -296,7 +237,6 @@ public class MainActivity extends Activity{
     	drawerList.setItemChecked(1, true);
     	
     }
-    
     
     /**
      * When using the ActionBarDrawerToggle, you must call it during

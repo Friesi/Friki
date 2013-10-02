@@ -40,31 +40,9 @@ public class FragmentMyRss extends ListFragment {
 	
 	@Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-		
-
 		Intent postintent = new Intent(BROADCAST_FRAGMENT_MYRSS_CLICK);
 		postintent.putExtra(getResources().getString(R.string.RssListPosition), position);
 		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(postintent);
-		
-		
-
-		/** Alter Codeblock, wurde jetzt durch LocalBroadcast in die Activity ausgelagert */
-		/*
-        Fragment fragment = new FragmentPostings();
-        
-        Bundle args = new Bundle();
-        args.putString(getResources().getString(R.string.RssName), elements[position]);
-		args.putString(getResources().getString(R.string.RssAdress), "http://derStandard.at/?page=rss&ressort=Webstandard");	// TODO: Diese fixe Adresse muss ausgetauscht werden durch die, auf die im Fragment geklickt wurde
-		fragment.setArguments(args);
-		
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction()
-		               .replace(R.id.main_activity_container, fragment)
-		               .addToBackStack(null)
-		               .commit();
-		 */
-		               
-	
 	}
 	
 	@Override
@@ -73,6 +51,4 @@ public class FragmentMyRss extends ListFragment {
         // Set title
         getActivity().getActionBar().setTitle(R.string.titleFragmentMyRss);
     }
-    
-
 }
