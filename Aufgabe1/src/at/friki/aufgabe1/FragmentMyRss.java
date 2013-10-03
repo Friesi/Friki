@@ -41,16 +41,11 @@ public class FragmentMyRss extends ListFragment {
         super.onCreate(savedInstanceState);
         
         
-     // MyRss-Daten Objekt anlegen
+        // MyRss-Daten Objekt anlegen
         dataStore = new MyRssDataStore();
         
         dataStore.readAllRssFeeds(getActivity());
         String[] elements = dataStore.getMyRssNames();
-        
-        
-        // TODO: richtige URLS angeben! 
-        
-        
  
         setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, elements));
     }

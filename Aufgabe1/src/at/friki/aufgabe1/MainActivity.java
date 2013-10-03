@@ -111,25 +111,22 @@ public class MainActivity extends Activity{
     
     private BroadcastReceiver PostReceiver = new BroadcastReceiver() {
     	  @Override
-    	  public void onReceive(Context context, Intent intent) {
-    		  
-    		  String[] elements ={
-    		            "MyListenelement 1",
-    		            "MyListenelement 2",
-    		            "derStandard.at",
-    		    };
-    		  
+    	  public void onReceive(Context context, Intent intent) {    		  
     		  
     		  setTitle(getResources().getStringArray(R.array.left_menu)[1]);
     		  
     		  
     		  int position = intent.getIntExtra(getString(R.string.RssListPosition), 0);
     		  
+    		  	dataStore.readAllRssFeeds(context);
+    	        String[] elements = dataStore.getMyRssNames();
+    	        String[] urls = dataStore.getMyRssUrls();
+    		  
     		  Fragment fragment = new FragmentPostings();
     	        
     	        Bundle args = new Bundle();
     	        args.putString(getResources().getString(R.string.RssName), elements[position]);
-    			args.putString(getResources().getString(R.string.RssAdress), "http://derStandard.at/?page=rss&ressort=Webstandard");	// TODO: Diese fixe Adresse muss ausgetauscht werden durch die, auf die im Fragment geklickt wurde
+    			args.putString(getResources().getString(R.string.RssAdress), urls[position]);	//http://derStandard.at/?page=rss&ressort=Webstandard
     			fragment.setArguments(args);
     			
     			FragmentManager fragmentManager = getFragmentManager();
@@ -276,45 +273,6 @@ public class MainActivity extends Activity{
       // Unregister since the activity is about to be closed.
       LocalBroadcastManager.getInstance(this).unregisterReceiver(SubscribeReceiver);
       super.onDestroy();
-    }
-    
-    
-    /** Funktionen zum Speichern und Lesen von Dateien mit SharedPreferences */
-    
-    
- public void btn3_click(View view){						// ToDo FragmentMyRss Elemente vom internen Auslesen und ins elements übernehmen
-    	
-    	SharedPreferences prefs = this.getSharedPreferences("at.friki.aufgabe1", Context.MODE_PRIVATE);
-    	
-    	int maxAnz = prefs.getInt("Anz", 0);	// Anzahl der gespeicherten Werte
-    	
-    	// putInt("anzahl", xy)
-    	
-    	String lokalStringLoad = "";
-
-    	String[] elements = new String[maxAnz]; 
- 
-    	
-    	for(int i=0; i<maxAnz; i++){										// und anschließend ins StringArray schreiben
-    	
-	    	lokalStringLoad = prefs.getString("wert"+i,"leer");
-	    	
-	    	elements[i] = lokalStringLoad;
-    	
-    	}
-      
-    	//TextView textview = (TextView) findViewById(R.id.textView2);
-    	//textview.setText(lokalStringLoad);
-   	
-
-   }
-    
-    public void btn4_click(View view){								// alle SharedPreferences löschen, TESTZWECK
-    	
-    	SharedPreferences prefs = this.getSharedPreferences("at.friki.aufgabe1", Context.MODE_PRIVATE);
-    	
-    	prefs.edit().clear().commit();
-    	    
     }
 
 }

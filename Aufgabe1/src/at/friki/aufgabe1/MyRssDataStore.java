@@ -43,30 +43,23 @@ public class MyRssDataStore {
 
 		SharedPreferences.Editor editor = prefs.edit();
 
-		editor.putInt("Anz", ++anz);
+		editor.putInt("Anz", anz+1);
 		editor.putString("Name" + anz, Name);
 		editor.putString("Url" + anz, Url);
 			
 		editor.commit();
-			
-		
 	}
 	
 	public void readAllRssFeeds(Context context) {
 		SharedPreferences prefs = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 		
 		maxAnz = prefs.getInt("Anz", 0);	// Anzahl der gespeicherten Werte
-		
-		if (maxAnz == 0){
-			
-			
-		}
  
     	myRssNames = new ArrayList<String>();
     	myRssUrls = new ArrayList<String>();
     	
-    	for(int i=0; i<maxAnz;){										// und anschließend ins StringArray schreiben
-    		i++;
+    	for(int i=0; i<maxAnz; i++){										// und anschließend ins StringArray schreiben
+    		
     		myRssNames.add(prefs.getString("Name"+i,"leer"));
     		myRssUrls.add(prefs.getString("Url"+i,"leer"));
     	}
