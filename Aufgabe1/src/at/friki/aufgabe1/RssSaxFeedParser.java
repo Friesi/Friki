@@ -28,16 +28,16 @@ public class RssSaxFeedParser extends RssBaseFeedParser {
         
         RootElement root;
         Element item;
-        
+        /*
         try {
         	root = new RootElement(RDF_NAMESPACE, "RDF");
         	item = root.getChild("", ITEM);
         }
-        catch (Exception e) {
+        catch (Exception e) {*/
         	root = new RootElement(RSS_NAMESPACE, "rss");
             Element channel = root.getChild("channel");
             item = channel.getChild(ITEM);
-        }
+        //}
         
         item.setEndElementListener(new EndElementListener(){
             public void end() {

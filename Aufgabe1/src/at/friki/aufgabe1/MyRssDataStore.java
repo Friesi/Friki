@@ -12,13 +12,7 @@ public class MyRssDataStore {
 
 	private static final String prefName = "at.friki.aufgabe1";
 	private ArrayList<String> myRssNames;
-	private ArrayList<String> myRssUrls;
-	
-	int maxAnz = 0;
-	
-	
-	private String[] myRssUrlsArray;
-	
+	private ArrayList<String> myRssUrls;	
 	
 	public MyRssDataStore() {
 		myRssNames = new ArrayList<String>();
@@ -27,20 +21,18 @@ public class MyRssDataStore {
 	
 	
 	public String[] getMyRssNames() {
-		return (String[]) myRssNames.toArray(new String[maxAnz]);				//Fehler beseitigt durch Angabe der Array-Größe
+		return (String[]) myRssNames.toArray(new String[myRssNames.size()]);				//Fehler beseitigt durch Angabe der Array-Größe
 
 	}
 	
 	public String[] getMyRssUrls() {
-		return (String[]) myRssUrls.toArray(new String[maxAnz]);		// //Fehler beseitigt durch Angabe der Array-Größe
+		return (String[]) myRssUrls.toArray(new String[myRssUrls.size()]);		// //Fehler beseitigt durch Angabe der Array-Größe
 	}
 	
 	public void saveNewRssFeed(Context context, String Name, String Url) {
 		SharedPreferences prefs = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
-		
 		int anz = prefs.getInt("Anz", 0);
 		
-
 		SharedPreferences.Editor editor = prefs.edit();
 
 		editor.putInt("Anz", anz+1);
@@ -53,24 +45,46 @@ public class MyRssDataStore {
 	public void readAllRssFeeds(Context context) {
 		SharedPreferences prefs = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 		
-		maxAnz = prefs.getInt("Anz", 0);	// Anzahl der gespeicherten Werte
+		int maxAnz = prefs.getInt("Anz", 0);	// Anzahl der gespeicherten Werte
  
     	myRssNames = new ArrayList<String>();
     	myRssUrls = new ArrayList<String>();
+    	String tmpName = "";
+    	String tmpUrl = "";
     	
     	for(int i=0; i<maxAnz; i++){										// und anschließend ins StringArray schreiben
+    		tmpName = prefs.getString("Name"+i,"leer");
+    		tmpUrl = prefs.getString("Url"+i,"leer");
     		
-    		myRssNames.add(prefs.getString("Name"+i,"leer"));
-    		myRssUrls.add(prefs.getString("Url"+i,"leer"));
+    		if (!tmpName.equals("leer") && !tmpUrl.equals("leer")) {
+	    		myRssNames.add(tmpName);
+	    		myRssUrls.add(tmpUrl);
+    		}
     	}
-
 	}
 	
-	public void ClearDataStore(Context context){
-		
+	public void clearDataStore(Context context){
 		SharedPreferences prefs = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
-		prefs.edit().clear().commit();
-			
+		prefs.edit().clear().commit();	
 	}
-
+	
+	public void removeRssFeed(Context context, int keyNum) {
+		SharedPreferences prefs = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		
+		editor.remove("Name" + keyNum);
+		editor.remove("Url" + keyNum);
+		editor.commit();
+		
+		this.readAllRssFeeds(context);
+		this.reOrganizePref(context, keyNum);
+	}
+	
+	private void reOrganizePref(Context context, int keyToRemove) {
+		this.clearDataStore(context);
+		
+		for(int i=0; i<myRssNames.size(); i++) {
+			this.saveNewRssFeed(context, myRssNames.get(i), myRssUrls.get(i));
+		}
+	}
 }

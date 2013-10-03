@@ -143,17 +143,12 @@ public class MainActivity extends Activity{
   	/**	Fragment Subscribe Broadcast abfangen und Fragment aufrufen */
 
     private BroadcastReceiver SubscribeReceiver = new BroadcastReceiver() {
-      	  @Override
-      	  public void onReceive(Context context, Intent intent) {
-      		  
-      		String txtSubscribeName = intent.getStringExtra(getString(R.string.txtSubscribeName));
+    	@Override
+    	public void onReceive(Context context, Intent intent) {
+    		String txtSubscribeName = intent.getStringExtra(getString(R.string.txtSubscribeName));
       		String txtSubscribeUrl = intent.getStringExtra(getString(R.string.txtSubscribeUrl));
       		
-      		
-      		//dataStore.ClearDataStore(context);	// zu Testzwecken!
-      		
-      		
-      		
+      		//dataStore.clearDataStore(context);	// zu Testzwecken!
       		dataStore.saveNewRssFeed(context, txtSubscribeName, txtSubscribeUrl);
       		
       		setTitle(getResources().getStringArray(R.array.left_menu)[1]);
@@ -166,12 +161,9 @@ public class MainActivity extends Activity{
             trans.commit();
             
             changeHighlight();
-      	
-      
-      	  }
-      	};
+    	}
+	};
 
-    
     
     /* ClickListener für Nav Drawer */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -183,7 +175,6 @@ public class MainActivity extends Activity{
     
     /* Geklicktes ListItem des Nav Drawers auswählen und anschließend dafür gewähltes Fragment aufrufen */
     private void selectItem(int position) {
-    	
     	Fragment fragment;
     	
     	switch(position) {
@@ -226,8 +217,8 @@ public class MainActivity extends Activity{
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
- 	return super.onPrepareOptionsMenu(menu);
- 		}
+		return super.onPrepareOptionsMenu(menu);
+	}
    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

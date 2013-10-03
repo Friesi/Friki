@@ -3,47 +3,31 @@ package at.friki.aufgabe1;
 /**
  * Created by Chris on 26.09.13.
  */
-import java.util.ArrayList;
-
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.app.AlertDialog;
 import android.app.ListFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Messenger;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 public class FragmentMyRss extends ListFragment {
 	
-	 private MyRssDataStore dataStore;
-	
-	  
-     
-	
-	
-	
+	private MyRssDataStore dataStore;
+	private int delItemKey = 0;
 	public static final String BROADCAST_FRAGMENT_MYRSS_CLICK = "BROADCAST_FRAGMENT_MYRSS_CLICK";
-	
-	/*String[] elements ={
-            "MyListenelement 1",
-            "MyListenelement 2",
-            "derStandard.at",
-
-    };*/
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        
         // MyRss-Daten Objekt anlegen
         dataStore = new MyRssDataStore();
-        
         dataStore.readAllRssFeeds(getActivity());
         String[] elements = dataStore.getMyRssNames();
  
@@ -56,6 +40,38 @@ public class FragmentMyRss extends ListFragment {
 		postintent.putExtra(getResources().getString(R.string.RssListPosition), position);
 		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(postintent);
 	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedState) {
+	    super.onActivityCreated(savedState);
+	    
+	    getListView().setOnItemLongClickListener(new OnItemLongClickListener() {	// Langes drücken auf Item
+	        @Override
+	        public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+	        	delItemKey = arg2;
+	        	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	        	builder.setMessage("RSS Feed löschen?").setPositiveButton("Ja", dialogClickListener).setNegativeButton("Nein", dialogClickListener).show();		//Dialog zeigen
+	            return true;
+	        }
+	    });
+	}
+	
+	 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+            case DialogInterface.BUTTON_POSITIVE:													//wenn Dialogantwort JA
+            	dataStore.removeRssFeed(getActivity(), delItemKey);		// delItemKey ItemPosition auf die geklickt wurde
+	            String[] elements = dataStore.getMyRssNames();
+	     
+	            setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, elements));
+                break;
+
+            case DialogInterface.BUTTON_NEGATIVE:													//wenn Dialogantwort NEIN
+                break;
+            }
+        }
+	};
 	
 	@Override
     public void onResume() {
