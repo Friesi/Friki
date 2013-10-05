@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import android.widget.Toast;
+
 /**
  * Created by Mathias on 26.09.13
  */

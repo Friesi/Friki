@@ -13,10 +13,6 @@ import java.util.List;
  * Created by Mathias on 26.09.13.
  */
 public class RssSaxFeedParser extends RssBaseFeedParser {
-
-	static final String RDF_NAMESPACE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"; //:RDF
-	static final String ATOM_NAMESPACE = "http://www.w3.org/2005/Atom";
-	static final String RSS_NAMESPACE = "";
 	
     public RssSaxFeedParser(String feedUrl) {
         super(feedUrl);
@@ -28,16 +24,10 @@ public class RssSaxFeedParser extends RssBaseFeedParser {
         
         RootElement root;
         Element item;
-        /*
-        try {
-        	root = new RootElement(RDF_NAMESPACE, "RDF");
-        	item = root.getChild("", ITEM);
-        }
-        catch (Exception e) {*/
-        	root = new RootElement(RSS_NAMESPACE, "rss");
-            Element channel = root.getChild("channel");
-            item = channel.getChild(ITEM);
-        //}
+
+        root = new RootElement("rss");
+        Element channel = root.getChild("channel");
+        item = channel.getChild(ITEM);
         
         item.setEndElementListener(new EndElementListener(){
             public void end() {

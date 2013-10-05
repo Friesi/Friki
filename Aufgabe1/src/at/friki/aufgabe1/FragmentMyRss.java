@@ -17,8 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 public class FragmentMyRss extends ListFragment {
-	
-	private MyRssDataStore dataStore;
+
 	private int delItemKey = 0;
 	public static final String BROADCAST_FRAGMENT_MYRSS_CLICK = "BROADCAST_FRAGMENT_MYRSS_CLICK";
 	
@@ -27,9 +26,7 @@ public class FragmentMyRss extends ListFragment {
         super.onCreate(savedInstanceState);
         
         // MyRss-Daten Objekt anlegen
-        dataStore = new MyRssDataStore();
-        dataStore.readAllRssFeeds(getActivity());
-        String[] elements = dataStore.getMyRssNames();
+        String[] elements = MyRssDataStore.getInstance().getMyRssNames(getActivity());
  
         setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, elements));
     }
@@ -61,8 +58,8 @@ public class FragmentMyRss extends ListFragment {
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
             case DialogInterface.BUTTON_POSITIVE:													//wenn Dialogantwort JA
-            	dataStore.removeRssFeed(getActivity(), delItemKey);		// delItemKey ItemPosition auf die geklickt wurde
-	            String[] elements = dataStore.getMyRssNames();
+            	MyRssDataStore.getInstance().removeRssFeed(getActivity(), delItemKey);		// delItemKey ItemPosition auf die geklickt wurde
+	            String[] elements = MyRssDataStore.getInstance().getMyRssNames(getActivity());
 	     
 	            setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, elements));
                 break;

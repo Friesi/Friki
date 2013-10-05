@@ -26,6 +26,7 @@
 	<string name="RssTitleValue">at.friki.aufgabe1.RssTitleValue</string>
 	<string name="RssLinkValue">at.friki.aufgabe1.RssLinkValue</string>
 	<string name="RssListPosition">at.friki.aufgabe1.RssListPosition</string>
+	<string name="RssErrMessage">at.friki.aufgabe1.RssErrMessage</string>
 	
 	<string name="txtSubscribeName">at.friki.aufgabe1.txtSubscribeName</string>
 	<string name="txtSubscribeUrl">at.friki.aufgabe1.txtSubscribeUrl</string>

@@ -27,12 +27,19 @@ public class RssService extends IntentService {
 		Messenger messenger=(Messenger) intent.getExtras().get(getResources().getString(R.string.RssHandler)); 
 		String rssName = intent.getStringExtra(getResources().getString(R.string.RssName));
 		String rssAdress = intent.getStringExtra(getResources().getString(R.string.RssAdress));
+		String errMsg = "";
 		
-		RssSaxFeedParser rss = new RssSaxFeedParser(rssAdress);
-        List<RssItem> items = new ArrayList<RssItem>();
-        
-        items = rss.parse();	// Kompletten RSS Feed parsen
-        
+		List<RssItem> items = new ArrayList<RssItem>();
+		
+		try {
+			RssSaxFeedParser rss = new RssSaxFeedParser(rssAdress);
+	        items = rss.parse();	// Kompletten RSS Feed parsen
+		}
+		catch (Exception e)
+		{
+			errMsg = e.getCause() + ": " + e.getMessage();
+		}
+		
         ArrayList<String> titles = new ArrayList<String>();
         ArrayList<String> links = new ArrayList<String>();
 
@@ -44,6 +51,7 @@ public class RssService extends IntentService {
         // Ergebniss per Handle and Activity/Fragment senden
         Message msg = Message.obtain();
         Bundle data = new Bundle();
+        data.putString(getResources().getString(R.string.RssErrMessage), errMsg);
         data.putString(getResources().getString(R.string.RssName), rssName);
         data.putStringArrayList(getResources().getString(R.string.RssTitleValue), titles);
         data.putStringArrayList(getResources().getString(R.string.RssLinkValue), links);
@@ -52,7 +60,6 @@ public class RssService extends IntentService {
         try {
             messenger.send(msg);
         } catch (RemoteException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } 
 	}

@@ -37,15 +37,10 @@ public class MainActivity extends Activity{
     private CharSequence drawerTitle;
     private CharSequence title;
 
-    private MyRssDataStore dataStore;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        // MyRss-Daten Objekt anlegen
-        dataStore = new MyRssDataStore();
         
         title = drawerTitle = getTitle();
         
@@ -110,31 +105,29 @@ public class MainActivity extends Activity{
     /**	Fragment Postings Broadcast abfangen und Fragment aufrufen */
     
     private BroadcastReceiver PostReceiver = new BroadcastReceiver() {
-    	  @Override
-    	  public void onReceive(Context context, Intent intent) {    		  
+    	@Override
+    	public void onReceive(Context context, Intent intent) {    		  
     		  
-    		  setTitle(getResources().getStringArray(R.array.left_menu)[1]);
+    		setTitle(getResources().getStringArray(R.array.left_menu)[1]);
+  
+    		int position = intent.getIntExtra(getString(R.string.RssListPosition), 0);
+    		
+			String[] elements = MyRssDataStore.getInstance().getMyRssNames(context);
+			String[] urls = MyRssDataStore.getInstance().getMyRssUrls(context);
     		  
-    		  
-    		  int position = intent.getIntExtra(getString(R.string.RssListPosition), 0);
-    		  
-    		  	dataStore.readAllRssFeeds(context);
-    	        String[] elements = dataStore.getMyRssNames();
-    	        String[] urls = dataStore.getMyRssUrls();
-    		  
-    		  Fragment fragment = new FragmentPostings();
+    		Fragment fragment = new FragmentPostings();
     	        
-    	        Bundle args = new Bundle();
-    	        args.putString(getResources().getString(R.string.RssName), elements[position]);
-    			args.putString(getResources().getString(R.string.RssAdress), urls[position]);	//http://derStandard.at/?page=rss&ressort=Webstandard
-    			fragment.setArguments(args);
-    			
-    			FragmentManager fragmentManager = getFragmentManager();
-    			fragmentManager.beginTransaction()
-    			               .replace(R.id.main_activity_container, fragment)
-    			               .addToBackStack(null)
-    			               .commit();
-    	  }
+	        Bundle args = new Bundle();
+	        args.putString(getResources().getString(R.string.RssName), elements[position]);
+			args.putString(getResources().getString(R.string.RssAdress), urls[position]);	//http://derStandard.at/?page=rss&ressort=Webstandard
+			fragment.setArguments(args);
+			
+			FragmentManager fragmentManager = getFragmentManager();
+			fragmentManager.beginTransaction()
+			               .replace(R.id.main_activity_container, fragment)
+			               .addToBackStack(null)
+			               .commit();
+    	}
   	};
     	 
     
@@ -148,8 +141,7 @@ public class MainActivity extends Activity{
     		String txtSubscribeName = intent.getStringExtra(getString(R.string.txtSubscribeName));
       		String txtSubscribeUrl = intent.getStringExtra(getString(R.string.txtSubscribeUrl));
       		
-      		//dataStore.clearDataStore(context);	// zu Testzwecken!
-      		dataStore.saveNewRssFeed(context, txtSubscribeName, txtSubscribeUrl);
+      		MyRssDataStore.getInstance().saveNewRssFeed(context, txtSubscribeName, txtSubscribeUrl, true);
       		
       		setTitle(getResources().getStringArray(R.array.left_menu)[1]);
         	

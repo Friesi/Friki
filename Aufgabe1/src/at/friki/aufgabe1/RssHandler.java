@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RssHandler extends Handler {
 	
@@ -28,12 +29,19 @@ public class RssHandler extends Handler {
 		
 		//String result = msg.getData().getString(activity.getResources().getString(R.string.RssReturnValue)); 
 		//display.setText(result);
+		String errMsg = msg.getData().getString(activity.getResources().getString(R.string.RssErrMessage));
 		
-		ArrayList<String> resultTitle = msg.getData().getStringArrayList(activity.getResources().getString(R.string.RssTitleValue));
-		this.urls = msg.getData().getStringArrayList(activity.getResources().getString(R.string.RssLinkValue));			// Alle URLS der einzelnen Postings speichern
-		
-		fragment.setListAdapter(new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, resultTitle));	// Inhalt von RSS in Liste anzeigen
-		activity.setTitle(msg.getData().getString(activity.getResources().getString(R.string.RssName)));				// ActionBar Titel setzen
+		if (errMsg != "") {
+			Toast.makeText(activity, "Fehler in der Url!\n\n" + errMsg, Toast.LENGTH_LONG).show();
+			activity.onBackPressed();	// Fragment wieder schlieﬂen und Toast auf dem MyRss Fragment anzeigen
+		}
+		else {
+			ArrayList<String> resultTitle = msg.getData().getStringArrayList(activity.getResources().getString(R.string.RssTitleValue));
+			this.urls = msg.getData().getStringArrayList(activity.getResources().getString(R.string.RssLinkValue));			// Alle URLS der einzelnen Postings speichern
+			
+			fragment.setListAdapter(new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, resultTitle));	// Inhalt von RSS in Liste anzeigen
+			activity.setTitle(msg.getData().getString(activity.getResources().getString(R.string.RssName)));				// ActionBar Titel setzen
+		}
 	}
 	
 	public ArrayList<String> getUrls() {
