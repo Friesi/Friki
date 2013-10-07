@@ -255,6 +255,8 @@ public class MainActivity extends Activity{
     protected void onDestroy() {
       // Unregister since the activity is about to be closed.
       LocalBroadcastManager.getInstance(this).unregisterReceiver(SubscribeReceiver);
+      LocalBroadcastManager.getInstance(this).unregisterReceiver(PostReceiver);
+      
       super.onDestroy();
     }
 
