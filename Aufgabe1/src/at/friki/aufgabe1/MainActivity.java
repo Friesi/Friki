@@ -44,7 +44,7 @@ public class MainActivity extends Activity{
         
         title = drawerTitle = getTitle();
         
-        // Erzeuge Left Slide Menu a
+        // Erzeuge Left Slide Menu
         leftMenuTitles = getResources().getStringArray(R.array.left_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_menu);
