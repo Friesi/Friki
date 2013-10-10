@@ -89,18 +89,19 @@ public class MainActivity extends Activity{
         if (savedInstanceState == null) {
             selectItem(0);
         }
-        
-
-        
-        /** Diverse Broadcast Listener */   
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	
+    	/** Diverse Broadcast Listener */   
         LocalBroadcastManager.getInstance(this).registerReceiver(SubscribeReceiver,	
       	      new IntentFilter(FragmentSubscribe.BROADCAST_FRAGMENT_SUBSCRIBE_CLICK));
         
         LocalBroadcastManager.getInstance(this).registerReceiver(PostReceiver,
-        	      new IntentFilter(FragmentMyRss.BROADCAST_FRAGMENT_MYRSS_CLICK)); 
+        	      new IntentFilter(FragmentMyRss.BROADCAST_FRAGMENT_MYRSS_CLICK));
     }
-    
-    
     
     /**	Fragment Postings Broadcast abfangen und Fragment aufrufen */
     
@@ -252,12 +253,11 @@ public class MainActivity extends Activity{
     }
     
     @Override
-    protected void onDestroy() {
-      // Unregister since the activity is about to be closed.
-      LocalBroadcastManager.getInstance(this).unregisterReceiver(SubscribeReceiver);
-      LocalBroadcastManager.getInstance(this).unregisterReceiver(PostReceiver);
-      
-      super.onDestroy();
+    protected void onPause() {
+    	super.onPause();
+    	// Unregister since the activity is about to be closed.
+    	LocalBroadcastManager.getInstance(this).unregisterReceiver(SubscribeReceiver);
+      	LocalBroadcastManager.getInstance(this).unregisterReceiver(PostReceiver);
     }
 
 }
