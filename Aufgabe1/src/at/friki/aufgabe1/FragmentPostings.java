@@ -18,8 +18,6 @@ public class FragmentPostings extends ListFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        //setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, elements));
-        
         rssHandler = new RssHandler(getActivity(), this);
         
         Intent intent = new Intent(getActivity(), RssService.class);

@@ -181,10 +181,6 @@ public class MainActivity extends Activity{
 	        	fragment = new FragmentSubscribe();
 	    }
     	
-        //Bundle args = new Bundle();
-        //args.putInt(MyListFragment1.ARG_PLANET_NUMBER, position);
-        //fragment.setArguments(args);
-
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
@@ -197,8 +193,7 @@ public class MainActivity extends Activity{
         drawerLayout.closeDrawer(drawerList);
     }
     
-    
-    
+
     /** Action Bar Zeug - nur für schönere Optik ^^ */
     
     @Override

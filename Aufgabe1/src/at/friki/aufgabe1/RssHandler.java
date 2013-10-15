@@ -26,9 +26,6 @@ public class RssHandler extends Handler {
 	/** Methode die aufgerufen wird wenn das Service fertig ist */
 	@Override
 	public void handleMessage(Message msg) {
-		
-		//String result = msg.getData().getString(activity.getResources().getString(R.string.RssReturnValue)); 
-		//display.setText(result);
 		String errMsg = msg.getData().getString(activity.getResources().getString(R.string.RssErrMessage));
 		
 		if (errMsg != "") {
